@@ -1,6 +1,7 @@
 package net.zusz.zdonutmod;
 
 import net.zusz.zdonutmod.block.ModBlocks;
+import net.zusz.zdonutmod.item.ModCreativeModeTabs;
 import net.zusz.zdonutmod.item.ModItems;
 import org.slf4j.Logger;
 
@@ -36,6 +37,7 @@ public class ZDonutMod {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModCreativeModeTabs.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
