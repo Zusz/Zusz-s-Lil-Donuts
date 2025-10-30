@@ -26,10 +26,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.zusz.zdonutmod.block.custom.MiniDonutMachineBlock;
+import net.zusz.zdonutmod.item.ModItems;
 import net.zusz.zdonutmod.screen.custom.MiniDonutMachineMenu;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProvider {
@@ -49,6 +52,12 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
     private static final int INPUT_SLOT = 0;
     private static final int OIL_SLOT = 1;
     private static final int OIL_OUTPUT_SLOT = 2;
+    private static final List<Integer> ROW_1 = new ArrayList<>(List.of(3, 4, 5, 6));
+    private static final List<Integer> ROW_2 = new ArrayList<>(List.of(7, 8, 9, 10));
+    private static final List<Integer> ROW_3 = new ArrayList<>(List.of(11, 12, 13, 14));
+    private static final List<Integer> ROW_4 = new ArrayList<>(List.of(15, 16, 17, 18));
+
+
 
 
     protected final ContainerData data;
@@ -127,6 +136,79 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
 
 
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
+        if (hasIngredients() || !isRowEmpty(1) || !isRowEmpty(2) || !isRowEmpty(3)) {
+            increaseCraftingProgress();
+        } else {
+            resetProgress();
+        }
+
+        if (hasCraftingFinished()) {
+            for (int slot : ROW_3) {
+                progressSlot(slot);
+            }
+            for (int slot : ROW_2) {
+                progressSlot(slot);
+            }
+            for (int slot : ROW_1) {
+                progressSlot(slot);
+            }
+            if (hasIngredients()) {
+                progressSlot(0);
+            }
+            resetProgress();
+        }
+    }
+
+    private void progressSlot(int slotId) {
+        if (ROW_1.contains(slotId)) {
+            if(itemHandler.getStackInSlot(slotId).getItem() == ModItems.RAW_MINI_DONUT.asItem()) {
+                ItemStack stack = new ItemStack(ModItems.RAW_MINI_DONUT.asItem());
+                if (isSlotEmpty(slotId + 4)) {
+                    itemHandler.extractItem(slotId, 1, false);
+                    itemHandler.setStackInSlot(slotId + 4, stack);
+                }
+            }
+        }
+        if (ROW_2.contains(slotId)) {
+            if(itemHandler.getStackInSlot(slotId).getItem() == ModItems.RAW_MINI_DONUT.asItem()) {
+                ItemStack stack = new ItemStack(ModItems.MINI_DONUT.asItem());
+                if (isSlotEmpty(slotId + 4)) {
+                    itemHandler.extractItem(slotId, 1, false);
+                    itemHandler.setStackInSlot(slotId + 4, stack);
+                }
+            }
+        }
+        if (ROW_3.contains(slotId)) {
+            if(itemHandler.getStackInSlot(slotId).getItem() == ModItems.MINI_DONUT.asItem()) {
+                if (canInsertAmountIntoRow(4, 1)) {
+                    ItemStack stack = new ItemStack (ModItems.MINI_DONUT.asItem(), itemHandler.getStackInSlot(slotId + 4).getCount() + 1);
+                    System.out.println(itemHandler.getStackInSlot(slotId + 4).getCount() + 1);
+                    System.out.println(itemHandler.getStackInSlot(slotId + 4));
+                    itemHandler.extractItem(slotId, 1, false);
+                    itemHandler.setStackInSlot(slotId + 4, stack);
+                }
+            }
+        }
+        if (slotId == 0) {
+            if (isRowEmpty(1)) {
+                itemHandler.extractItem(0, 1, false);
+                for (int slot : ROW_1) {
+                    itemHandler.setStackInSlot(slot, new ItemStack(ModItems.RAW_MINI_DONUT.asItem()));
+                }
+            }
+        }
+    }
+
+    private boolean isRowEmpty(int row) {
+        if (row == 1 || row == 2 || row == 3) {
+            int startSlot = (row * 4) - 1;
+            return (itemHandler.getStackInSlot(startSlot).isEmpty() && itemHandler.getStackInSlot(startSlot + 1).isEmpty() && itemHandler.getStackInSlot(startSlot + 2).isEmpty() && itemHandler.getStackInSlot(startSlot + 3).isEmpty());
+        }
+        return false;
+    }
+
+    private boolean hasIngredients() {
+        return (itemHandler.getStackInSlot(0).getItem() == Items.WHEAT);
     }
 
     private void resetProgress() {
@@ -146,6 +228,16 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
         return itemHandler.getStackInSlot(slotid).isEmpty() ||
                 itemHandler.getStackInSlot(slotid).getItem() == output.getItem();
     }
+    private boolean canInsertAmountIntoRow(int row, int amount) {
+        if (row == 1 || row == 2 || row == 3 || row == 4) {
+            int startSlot = (row * 4) - 1;
+            return (canInsertAmountIntoSlot(amount, startSlot) &&
+                    canInsertAmountIntoSlot(amount, startSlot + 1) &&
+                    canInsertAmountIntoSlot(amount, startSlot + 2) &&
+                    canInsertAmountIntoSlot(amount, startSlot + 3));
+        }
+        return false;
+    }
 
     private boolean canInsertAmountIntoSlot(int count, int slotid) {
         int maxCount = itemHandler.getStackInSlot(slotid).isEmpty() ? 64 : itemHandler.getStackInSlot(slotid).getMaxStackSize();
@@ -153,6 +245,10 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
 
         return maxCount >= currentCount + count;
     }
+    private boolean isSlotEmpty(int slotId) {
+        return itemHandler.getStackInSlot(slotId).isEmpty();
+    }
+
 
 
 

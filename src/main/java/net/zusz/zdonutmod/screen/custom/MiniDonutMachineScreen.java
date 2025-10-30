@@ -35,7 +35,7 @@ public class MiniDonutMachineScreen extends AbstractContainerScreen<MiniDonutMac
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCrafting()) {
-            guiGraphics.blit(ARROW_TEXTURE,x + 20, y + 35, 0, 0, menu.getScaledArrowProgress(), 16, 24, 16);
+            guiGraphics.blit(ARROW_TEXTURE,x + 48, y + 35, 0, 0, menu.getScaledArrowProgress(), 16, 24, 16);
         }
     }
 
