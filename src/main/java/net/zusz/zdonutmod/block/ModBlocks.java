@@ -10,6 +10,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.zusz.zdonutmod.ZDonutMod;
+import net.zusz.zdonutmod.block.custom.MiniDonutMachineBlock;
 import net.zusz.zdonutmod.item.ModItems;
 
 import java.util.function.Supplier;
@@ -17,6 +18,9 @@ import java.util.function.Supplier;
 public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(ZDonutMod.MOD_ID);
+
+    public static final DeferredBlock<Block> MINI_DONUT_MACHINE = registerBlock("mini_donut_machine",
+            ()-> new MiniDonutMachineBlock(BlockBehaviour.Properties.of()));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

@@ -1,8 +1,15 @@
 package net.zusz.zdonutmod;
 
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.zusz.zdonutmod.block.ModBlocks;
+import net.zusz.zdonutmod.block.entity.ModBlockEntities;
 import net.zusz.zdonutmod.item.ModCreativeModeTabs;
 import net.zusz.zdonutmod.item.ModItems;
+import net.zusz.zdonutmod.screen.ModMenuTypes;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -16,6 +23,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.zusz.zdonutmod.screen.custom.MiniDonutMachineScreen;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(ZDonutMod.MOD_ID)
@@ -33,11 +41,13 @@ public class ZDonutMod {
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (ExampleMod) to respond directly to events.
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
-        NeoForge.EVENT_BUS.register(this);
+        //NeoForge.EVENT_BUS.register(this);
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -50,8 +60,28 @@ public class ZDonutMod {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
     }
 
+    @SubscribeEvent
+    public static void onRegisterScreens(RegisterMenuScreensEvent event) {
+        event.register(ModMenuTypes.MINI_DONUT_MACHINE_MENU.get(), MiniDonutMachineScreen::new);}
+
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
+    public void onServerStarting (ServerStartingEvent event){
+    }
+
+    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
+    @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientModEvents {
+        /*@SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event) {
+            ModItemProperties.addCustomItemProperties();
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.COFFEE_MACHINE.get(), RenderType.translucent()); //this adds half-transparent textures
+        }*/
+
+        @SubscribeEvent
+        public static void registerScreens( RegisterMenuScreensEvent event) {
+            event.register(ModMenuTypes.MINI_DONUT_MACHINE_MENU.get(), MiniDonutMachineScreen::new);
+        }
+
     }
 }
