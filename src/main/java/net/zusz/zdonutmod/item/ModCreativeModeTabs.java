@@ -19,6 +19,7 @@ public class ModCreativeModeTabs {
                     .title(Component.translatable("creativetab.zdonutmod.donut_items"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(ModItems.MINI_DONUT);
+                        output.accept(ModItems.RAW_MINI_DONUT);
 
                     }).build());
 

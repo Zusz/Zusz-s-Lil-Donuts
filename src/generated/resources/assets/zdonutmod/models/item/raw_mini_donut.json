@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "zdonutmod:item/raw_mini_donut"
+  }
+}
