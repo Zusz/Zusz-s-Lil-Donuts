@@ -1,5 +1,7 @@
 package net.zusz.zdonutmod;
 
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -7,6 +9,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.zusz.zdonutmod.block.ModBlocks;
 import net.zusz.zdonutmod.block.entity.ModBlockEntities;
+import net.zusz.zdonutmod.block.entity.renderer.MiniDonutMachineBlockEntityRenderer;
 import net.zusz.zdonutmod.item.ModCreativeModeTabs;
 import net.zusz.zdonutmod.item.ModItems;
 import net.zusz.zdonutmod.screen.ModMenuTypes;
@@ -72,15 +75,20 @@ public class ZDonutMod {
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
-        /*@SubscribeEvent
+        @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            ModItemProperties.addCustomItemProperties();
-            ItemBlockRenderTypes.setRenderLayer(ModBlocks.COFFEE_MACHINE.get(), RenderType.translucent()); //this adds half-transparent textures
-        }*/
+            //ModItemProperties.addCustomItemProperties();
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.MINI_DONUT_MACHINE.get(), RenderType.translucent());//this adds half-transparent textures
+        }
 
         @SubscribeEvent
         public static void registerScreens( RegisterMenuScreensEvent event) {
             event.register(ModMenuTypes.MINI_DONUT_MACHINE_MENU.get(), MiniDonutMachineScreen::new);
+        }
+
+        @SubscribeEvent
+        public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
+            event.registerBlockEntityRenderer(ModBlockEntities.MINI_DONUT_MACHINE_BE.get(), MiniDonutMachineBlockEntityRenderer::new);
         }
 
     }

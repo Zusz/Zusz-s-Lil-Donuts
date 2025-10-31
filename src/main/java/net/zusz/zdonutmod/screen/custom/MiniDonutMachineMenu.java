@@ -45,22 +45,22 @@ public class MiniDonutMachineMenu extends AbstractContainerMenu {
         this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 0, 26, 16));//Input
         this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 1, 26, 34));//Oil In
         this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 2, 26, 52));//Oil Out
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 3, 80, 7));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 4, 80, 25));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 5, 80, 43));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 6, 80, 61));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 7, 98, 7));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 8, 98, 25));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 9, 98, 43));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 10, 98, 61));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 11, 116, 7));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 12, 116, 25));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 13, 116, 43));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 14, 116, 61));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 15, 134, 7));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 16, 134, 25));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 17, 134, 43));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 18, 134, 61));
+
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 3, 80, 16));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 4, 80, 34));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 5, 80, 52));
+
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 6, 98, 16));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 7, 98, 34));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 8, 98, 52));
+
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 9, 116, 16));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 10, 116, 34));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 11, 116, 52));
+
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 12, 134, 16));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 13, 134, 34));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 14, 134, 52));
 
 
         addDataSlots(data);
@@ -93,7 +93,7 @@ public class MiniDonutMachineMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     //amount of slots!!!
-    private static final int TE_INVENTORY_SLOT_COUNT = 19;
+    private static final int TE_INVENTORY_SLOT_COUNT = 15;
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         Slot sourceSlot = slots.get(index);

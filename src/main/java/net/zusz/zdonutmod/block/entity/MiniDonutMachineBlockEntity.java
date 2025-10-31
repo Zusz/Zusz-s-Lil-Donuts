@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProvider {
-    public final ItemStackHandler itemHandler = new ItemStackHandler(19) {
+    public final ItemStackHandler itemHandler = new ItemStackHandler(15) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -52,10 +52,10 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
     private static final int INPUT_SLOT = 0;
     private static final int OIL_SLOT = 1;
     private static final int OIL_OUTPUT_SLOT = 2;
-    private static final List<Integer> ROW_1 = new ArrayList<>(List.of(3, 4, 5, 6));
-    private static final List<Integer> ROW_2 = new ArrayList<>(List.of(7, 8, 9, 10));
-    private static final List<Integer> ROW_3 = new ArrayList<>(List.of(11, 12, 13, 14));
-    private static final List<Integer> ROW_4 = new ArrayList<>(List.of(15, 16, 17, 18));
+    private static final List<Integer> ROW_1 = new ArrayList<>(List.of(3, 4, 5));
+    private static final List<Integer> ROW_2 = new ArrayList<>(List.of(6, 7, 8));
+    private static final List<Integer> ROW_3 = new ArrayList<>(List.of(9, 10, 11));
+    private static final List<Integer> ROW_4 = new ArrayList<>(List.of(12, 13, 14));
 
 
 
@@ -163,29 +163,27 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
         if (ROW_1.contains(slotId)) {
             if(itemHandler.getStackInSlot(slotId).getItem() == ModItems.RAW_MINI_DONUT.asItem()) {
                 ItemStack stack = new ItemStack(ModItems.RAW_MINI_DONUT.asItem());
-                if (isSlotEmpty(slotId + 4)) {
+                if (isSlotEmpty(slotId + 3)) {
                     itemHandler.extractItem(slotId, 1, false);
-                    itemHandler.setStackInSlot(slotId + 4, stack);
+                    itemHandler.setStackInSlot(slotId + 3, stack);
                 }
             }
         }
         if (ROW_2.contains(slotId)) {
             if(itemHandler.getStackInSlot(slotId).getItem() == ModItems.RAW_MINI_DONUT.asItem()) {
                 ItemStack stack = new ItemStack(ModItems.MINI_DONUT.asItem());
-                if (isSlotEmpty(slotId + 4)) {
+                if (isSlotEmpty(slotId + 3)) {
                     itemHandler.extractItem(slotId, 1, false);
-                    itemHandler.setStackInSlot(slotId + 4, stack);
+                    itemHandler.setStackInSlot(slotId + 3, stack);
                 }
             }
         }
         if (ROW_3.contains(slotId)) {
             if(itemHandler.getStackInSlot(slotId).getItem() == ModItems.MINI_DONUT.asItem()) {
                 if (canInsertAmountIntoRow(4, 1)) {
-                    ItemStack stack = new ItemStack (ModItems.MINI_DONUT.asItem(), itemHandler.getStackInSlot(slotId + 4).getCount() + 1);
-                    System.out.println(itemHandler.getStackInSlot(slotId + 4).getCount() + 1);
-                    System.out.println(itemHandler.getStackInSlot(slotId + 4));
+                    ItemStack stack = new ItemStack (ModItems.MINI_DONUT.asItem(), itemHandler.getStackInSlot(slotId + 3).getCount() + 1);
                     itemHandler.extractItem(slotId, 1, false);
-                    itemHandler.setStackInSlot(slotId + 4, stack);
+                    itemHandler.setStackInSlot(slotId + 3, stack);
                 }
             }
         }
@@ -201,8 +199,8 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
 
     private boolean isRowEmpty(int row) {
         if (row == 1 || row == 2 || row == 3) {
-            int startSlot = (row * 4) - 1;
-            return (itemHandler.getStackInSlot(startSlot).isEmpty() && itemHandler.getStackInSlot(startSlot + 1).isEmpty() && itemHandler.getStackInSlot(startSlot + 2).isEmpty() && itemHandler.getStackInSlot(startSlot + 3).isEmpty());
+            int startSlot = (row * 3);
+            return (itemHandler.getStackInSlot(startSlot).isEmpty() && itemHandler.getStackInSlot(startSlot + 1).isEmpty() && itemHandler.getStackInSlot(startSlot + 2).isEmpty());
         }
         return false;
     }
@@ -230,11 +228,10 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
     }
     private boolean canInsertAmountIntoRow(int row, int amount) {
         if (row == 1 || row == 2 || row == 3 || row == 4) {
-            int startSlot = (row * 4) - 1;
+            int startSlot = (row * 3);
             return (canInsertAmountIntoSlot(amount, startSlot) &&
                     canInsertAmountIntoSlot(amount, startSlot + 1) &&
-                    canInsertAmountIntoSlot(amount, startSlot + 2) &&
-                    canInsertAmountIntoSlot(amount, startSlot + 3));
+                    canInsertAmountIntoSlot(amount, startSlot + 2) );
         }
         return false;
     }
@@ -272,11 +269,14 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
 
         return switch (facing) {
             case NORTH -> 0f;
-            case SOUTH -> 180f;
-            case WEST  -> 90f;
-            case EAST  -> -90f;
+            case SOUTH -> 0f;
+            case WEST  -> 0f;
+            case EAST  -> 0f;
             default -> 0f;
 
         };
+    }
+    public Direction getFacing() {
+        return getBlockState().getValue(MiniDonutMachineBlock.FACING);
     }
 }

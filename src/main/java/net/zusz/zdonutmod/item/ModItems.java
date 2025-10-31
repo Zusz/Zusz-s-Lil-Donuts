@@ -13,7 +13,7 @@ public class ModItems {
     public static final DeferredItem<Item> MINI_DONUT = ITEMS.register("mini_donut",
             () -> new Item(new Item.Properties().food(ModFoodProperties.MINI_DONUT)));
     public static final DeferredItem<Item> RAW_MINI_DONUT = ITEMS.register("raw_mini_donut",
-            () -> new Item(new Item.Properties().food(ModFoodProperties.MINI_DONUT)));
+            () -> new Item(new Item.Properties()));
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
