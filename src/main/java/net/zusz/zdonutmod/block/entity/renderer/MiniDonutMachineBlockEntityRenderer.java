@@ -26,7 +26,6 @@ public class MiniDonutMachineBlockEntityRenderer implements BlockEntityRenderer<
     public void render(MiniDonutMachineBlockEntity miniDonutMachineBlockEntity, float v, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int i1) {
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
-        //Float yVariable1 = miniDonutMachineBlockEntity.getYVariable(1)
 
         if (miniDonutMachineBlockEntity.getFacing() == Direction.EAST) {
 
@@ -45,6 +44,66 @@ public class MiniDonutMachineBlockEntityRenderer implements BlockEntityRenderer<
             renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 12,  0.345f, 0.04f, 0.18f);
             renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 13,  0.5f, 0.04f, 0.18f);
             renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 14,  0.655f, 0.04f, 0.18f);
+
+        }
+
+        if (miniDonutMachineBlockEntity.getFacing() == Direction.WEST) {
+
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 9,  0.345f, 0.12f, 0.60f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 6,  0.345f, 0.12f, 0.45f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 3,  0.345f, 0.12f, 0.30f);
+
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 10,  0.5f, 0.12f, 0.60f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 7,  0.5f, 0.12f, 0.45f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 4,  0.5f, 0.12f, 0.30f);
+
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 11,  0.655f, 0.12f, 0.60f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 8,  0.655f, 0.12f, 0.45f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 5,  0.655f, 0.12f, 0.30f);
+
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 12,  0.345f, 0.04f, 0.82f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 13,  0.5f, 0.04f, 0.82f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 14,  0.655f, 0.04f, 0.82f);
+
+        }
+
+        if (miniDonutMachineBlockEntity.getFacing() == Direction.SOUTH) {
+
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 9,  0.60f, 0.12f, 0.345f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 6,  0.45f, 0.12f, 0.345f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 3,  0.30f, 0.12f, 0.345f);
+
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 10,  0.60f, 0.12f, 0.50f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 7,  0.45f, 0.12f, 0.50f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 4,  0.3f, 0.12f, 0.50f);
+
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 11,  0.60f, 0.12f, 0.655f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 8,  0.45f, 0.12f, 0.655f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 5,  0.30f, 0.12f, 0.655f);
+
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 12,  0.82f, 0.04f, 0.345f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 13,  0.82f, 0.04f, 0.5f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 14,  0.82f, 0.04f, 0.655f);
+
+        }
+
+        if (miniDonutMachineBlockEntity.getFacing() == Direction.NORTH) {
+
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 9,  0.40f, 0.12f, 0.655f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 6,  0.55f, 0.12f, 0.655f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 3,  0.70f, 0.12f, 0.655f);
+
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 10,  0.40f, 0.12f, 0.50f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 7,  0.55f, 0.12f, 0.50f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 4,  0.70f, 0.12f, 0.50f);
+
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 11,  0.40f, 0.12f, 0.345f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 8,  0.55f, 0.12f, 0.345f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 5,  0.70f, 0.12f, 0.345f);
+
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 12,  0.18f, 0.04f, 0.655f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 13,  0.18f, 0.04f, 0.5f);
+            renderSlotItem(miniDonutMachineBlockEntity, poseStack, multiBufferSource, itemRenderer, 14,  0.18f, 0.04f, 0.345f);
 
         }
     }

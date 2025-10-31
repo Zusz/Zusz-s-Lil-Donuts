@@ -127,7 +127,7 @@ import net.zusz.zdonutmod.block.entity.ModBlockEntities;
             return true;
         }
 
-        private static final VoxelShape MINI_DONUT_MACHINE_SHAPE = Block.box(2, 0, 2, 14, 12, 14);
+        private static final VoxelShape MINI_DONUT_MACHINE_SHAPE = Block.box(2, 0, 2, 14, 8, 14);
 
         @Override
         public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {

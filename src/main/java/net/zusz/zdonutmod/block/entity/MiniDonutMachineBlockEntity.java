@@ -65,7 +65,6 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
     private int maxProgress = 300;
 
 
-
     public MiniDonutMachineBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.MINI_DONUT_MACHINE_BE.get(), pos, blockState);
 
@@ -136,6 +135,18 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
 
 
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
+        if (yVariableGoing == "up") {
+            yVariable ++;
+            if (yVariable > 200) {
+                yVariableGoing = "down";
+            }
+        }
+        if (yVariableGoing == "down") {
+            yVariable --;
+            if (yVariable > -200) {
+                yVariableGoing = "up";
+            }
+        }
         if (hasIngredients() || !isRowEmpty(1) || !isRowEmpty(2) || !isRowEmpty(3)) {
             increaseCraftingProgress();
         } else {
@@ -268,9 +279,9 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
         Direction facing = getBlockState().getValue(MiniDonutMachineBlock.FACING);
 
         return switch (facing) {
-            case NORTH -> 0f;
-            case SOUTH -> 0f;
-            case WEST  -> 0f;
+            case NORTH -> 90f;
+            case SOUTH -> -90f;
+            case WEST  -> 180f;
             case EAST  -> 0f;
             default -> 0f;
 
@@ -279,4 +290,5 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
     public Direction getFacing() {
         return getBlockState().getValue(MiniDonutMachineBlock.FACING);
     }
+
 }
