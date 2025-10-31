@@ -135,18 +135,6 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
 
 
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
-        if (yVariableGoing == "up") {
-            yVariable ++;
-            if (yVariable > 200) {
-                yVariableGoing = "down";
-            }
-        }
-        if (yVariableGoing == "down") {
-            yVariable --;
-            if (yVariable > -200) {
-                yVariableGoing = "up";
-            }
-        }
         if (hasIngredients() || !isRowEmpty(1) || !isRowEmpty(2) || !isRowEmpty(3)) {
             increaseCraftingProgress();
         } else {
