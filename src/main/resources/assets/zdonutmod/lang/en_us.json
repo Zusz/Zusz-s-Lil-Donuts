@@ -1,6 +1,9 @@
 {
   "item.zdonutmod.mini_donut": "Mini Donut",
   "item.zdonutmod.raw_mini_donut": "Raw Mini Donut",
+  "item.zdonutmod.sunflower_oil": "Sunflower Oil",
+
+  "block.zdonutmod.mini_donut_machine": "Mini Donut Machine",
 
   "creativetab.zdonutmod.donut_items": "Zusz's Lil' Donuts"
 }

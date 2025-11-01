@@ -15,6 +15,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         basicItem(ModItems.MINI_DONUT.asItem());
         basicItem(ModItems.RAW_MINI_DONUT.asItem());
+        basicItem(ModItems.SUNFLOWER_OIL.asItem());
     }
 
 }

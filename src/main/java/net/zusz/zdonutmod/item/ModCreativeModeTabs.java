@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.zusz.zdonutmod.ZDonutMod;
+import net.zusz.zdonutmod.block.ModBlocks;
 
 import java.util.function.Supplier;
 
@@ -18,6 +19,8 @@ public class ModCreativeModeTabs {
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.MINI_DONUT.get()))
                     .title(Component.translatable("creativetab.zdonutmod.donut_items"))
                     .displayItems((itemDisplayParameters, output) -> {
+                        output.accept(ModBlocks.MINI_DONUT_MACHINE);
+                        output.accept(ModItems.SUNFLOWER_OIL);
                         output.accept(ModItems.MINI_DONUT);
                         output.accept(ModItems.RAW_MINI_DONUT);
 

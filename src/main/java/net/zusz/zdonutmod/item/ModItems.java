@@ -14,6 +14,8 @@ public class ModItems {
             () -> new Item(new Item.Properties().food(ModFoodProperties.MINI_DONUT)));
     public static final DeferredItem<Item> RAW_MINI_DONUT = ITEMS.register("raw_mini_donut",
             () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> SUNFLOWER_OIL = ITEMS.register("sunflower_oil",
+            () -> new Item(new Item.Properties()));
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sunflower_oil": {
+      "conditions": {
+        "items": [
+          {
+            "items": "zdonutmod:sunflower_oil"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "zdonutmod:mini_donut_machine"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_sunflower_oil"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "zdonutmod:mini_donut_machine"
+    ]
+  }
+}
