@@ -63,6 +63,8 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 300;
+    private int oil = 0;
+    private int maxOil = 120;
 
 
     public MiniDonutMachineBlockEntity(BlockPos pos, BlockState blockState) {
@@ -74,6 +76,8 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
                 return switch (i) {
                     case 0 -> MiniDonutMachineBlockEntity.this.progress;
                     case 1 -> MiniDonutMachineBlockEntity.this.maxProgress;
+                    case 2 -> MiniDonutMachineBlockEntity.this.oil;
+                    case 3 -> MiniDonutMachineBlockEntity.this.maxOil;
                     default -> 0;
                 };
             }
@@ -83,12 +87,14 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
                 switch (i) {
                     case 0: MiniDonutMachineBlockEntity.this.progress = value;
                     case 1: MiniDonutMachineBlockEntity.this.maxProgress = value;
+                    case 2: MiniDonutMachineBlockEntity.this.oil = value;
+                    case 3: MiniDonutMachineBlockEntity.this.maxOil = value;
                 }
             }
 
             @Override
             public int getCount() {
-                return 2;
+                return 4;
             }
         };
     }
@@ -119,6 +125,8 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
         pTag.put("inventory", itemHandler.serializeNBT(pRegistries));
         pTag.putInt("mini_donut_machine.progress", progress);
         pTag.putInt("mini_donut_machine.max_progress", maxProgress);
+        pTag.putInt("mini_donut_machine.oil", oil);
+        pTag.putInt("mini_donut_machine.max_oil", maxOil);
 
         super.saveAdditional(pTag, pRegistries);
     }
@@ -130,18 +138,32 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
         itemHandler.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
         progress = pTag.getInt("mini_donut_machine.progress");
         maxProgress = pTag.getInt("mini_donut_machine.max_progress");
+        oil = pTag.getInt("mini_donut_machine.oil");
+        maxOil = pTag.getInt("mini_donut_machine.max_oil");
 
     }
 
 
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
-        if (hasIngredients() || !isRowEmpty(1) || !isRowEmpty(2) || !isRowEmpty(3)) {
+        if (itemHandler.getStackInSlot(OIL_SLOT).getItem() == ModItems.SUNFLOWER_OIL.asItem())
+            if (itemHandler.getStackInSlot(OIL_OUTPUT_SLOT).getItem() == Items.GLASS_BOTTLE && itemHandler.getStackInSlot(OIL_OUTPUT_SLOT).getCount() <= 64) {
+                itemHandler.extractItem(OIL_SLOT, 1, false);
+                itemHandler.setStackInSlot(OIL_OUTPUT_SLOT, new ItemStack(Items.GLASS_BOTTLE, itemHandler.getStackInSlot(OIL_OUTPUT_SLOT).getCount() + 1));
+                this.oil = this.maxOil;
+            } else if (itemHandler.getStackInSlot(OIL_OUTPUT_SLOT).isEmpty()) {
+                itemHandler.extractItem(OIL_SLOT, 1, false);
+                itemHandler.setStackInSlot(OIL_OUTPUT_SLOT, new ItemStack(Items.GLASS_BOTTLE, itemHandler.getStackInSlot(OIL_OUTPUT_SLOT).getCount() + 1));
+                this.oil = this.maxOil;
+            }
+
+        if ((hasIngredients() || !isRowEmpty(1) || !isRowEmpty(2) || !isRowEmpty(3)) && oil > 0) {
             increaseCraftingProgress();
         } else {
             resetProgress();
         }
 
         if (hasCraftingFinished()) {
+            this.oil = oil - 1;
             for (int slot : ROW_3) {
                 progressSlot(slot);
             }

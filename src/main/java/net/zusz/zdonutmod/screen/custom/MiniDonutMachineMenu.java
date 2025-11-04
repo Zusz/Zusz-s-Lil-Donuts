@@ -16,6 +16,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import net.zusz.zdonutmod.block.ModBlocks;
 import net.zusz.zdonutmod.block.entity.MiniDonutMachineBlockEntity;
+import net.zusz.zdonutmod.item.ModItems;
 import net.zusz.zdonutmod.screen.ModMenuTypes;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class MiniDonutMachineMenu extends AbstractContainerMenu {
 
 
     public MiniDonutMachineMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
+        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
     }
 
     public MiniDonutMachineMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
@@ -77,6 +78,13 @@ public class MiniDonutMachineMenu extends AbstractContainerMenu {
         int arrowPixelSize = 24;
 
         return maxProgress != 0 && progress!= 0 ? progress * arrowPixelSize / maxProgress : 0;
+    }
+    public int getScaledOil() {
+        int progress = this.data.get(2);
+        int maxOil = this.data.get(3);
+        int oilPixelSize = 24;
+
+        return maxOil != 0 && progress!= 0 ? progress * oilPixelSize / maxOil : 0;
     }
 
 
@@ -147,8 +155,9 @@ public class MiniDonutMachineMenu extends AbstractContainerMenu {
     }
     private boolean isValidForOilSlot(ItemStack sourceStack) {
         List<Item> validItems = new ArrayList<>(List.of(
-                Items.HONEY_BOTTLE //Change later when oil is added!!!
+                ModItems.SUNFLOWER_OIL.asItem()
         ));
+
 
         return validItems.contains(sourceStack.getItem());
     }

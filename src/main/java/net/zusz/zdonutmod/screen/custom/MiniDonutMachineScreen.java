@@ -14,6 +14,8 @@ public class MiniDonutMachineScreen extends AbstractContainerScreen<MiniDonutMac
             ResourceLocation.fromNamespaceAndPath(ZDonutMod.MOD_ID,"textures/gui/mini_donut_machine/mini_donut_machine_gui_with_inventory.png");
     private static final ResourceLocation ARROW_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(ZDonutMod.MOD_ID,"textures/gui/arrow_progress.png");
+    private static final ResourceLocation OIL_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(ZDonutMod.MOD_ID,"textures/gui/mini_donut_machine/oil_meter.png");
 
     public MiniDonutMachineScreen(MiniDonutMachineMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -31,12 +33,17 @@ public class MiniDonutMachineScreen extends AbstractContainerScreen<MiniDonutMac
         guiGraphics.blit(GUI_TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
 
         renderProgressArrow(guiGraphics, x, y);
+        renderOil(guiGraphics, x, y);
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCrafting()) {
             guiGraphics.blit(ARROW_TEXTURE,x + 49, y + 35, 0, 0, menu.getScaledArrowProgress(), 16, 24, 16);
         }
+    }
+    private void renderOil(GuiGraphics guiGraphics, int x, int y) {
+            guiGraphics.blit(OIL_TEXTURE,x + 49, y + 53, 0, 0, menu.getScaledOil(), 16, 24, 16);
+
     }
 
 
