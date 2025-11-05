@@ -64,7 +64,7 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
     private int progress = 0;
     private int maxProgress = 300;
     private int oil = 0;
-    private int maxOil = 120;
+    private int maxOil = 128;
 
 
     public MiniDonutMachineBlockEntity(BlockPos pos, BlockState blockState) {
@@ -145,7 +145,7 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
 
 
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
-        if (itemHandler.getStackInSlot(OIL_SLOT).getItem() == ModItems.SUNFLOWER_OIL.asItem())
+        if (itemHandler.getStackInSlot(OIL_SLOT).getItem() == ModItems.SUNFLOWER_OIL.asItem() && oil == 0)
             if (itemHandler.getStackInSlot(OIL_OUTPUT_SLOT).getItem() == Items.GLASS_BOTTLE && itemHandler.getStackInSlot(OIL_OUTPUT_SLOT).getCount() <= 64) {
                 itemHandler.extractItem(OIL_SLOT, 1, false);
                 itemHandler.setStackInSlot(OIL_OUTPUT_SLOT, new ItemStack(Items.GLASS_BOTTLE, itemHandler.getStackInSlot(OIL_OUTPUT_SLOT).getCount() + 1));
@@ -156,22 +156,25 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
                 this.oil = this.maxOil;
             }
 
-        if ((hasIngredients() || !isRowEmpty(1) || !isRowEmpty(2) || !isRowEmpty(3)) && oil > 0) {
+        if ((hasIngredients() || !isRowEmpty(1) || !isRowEmpty(2) || !isRowEmpty(3)) ) {
             increaseCraftingProgress();
         } else {
             resetProgress();
         }
 
         if (hasCraftingFinished()) {
-            this.oil = oil - 1;
+
             for (int slot : ROW_3) {
                 progressSlot(slot);
             }
             for (int slot : ROW_2) {
                 progressSlot(slot);
             }
-            for (int slot : ROW_1) {
-                progressSlot(slot);
+            if (oil != 0) {
+                for (int slot : ROW_1) {
+                    progressSlot(slot);
+                }
+                this.oil = oil - 1;
             }
             if (hasIngredients()) {
                 progressSlot(0);
@@ -227,7 +230,7 @@ public class MiniDonutMachineBlockEntity extends BlockEntity implements MenuProv
     }
 
     private boolean hasIngredients() {
-        return (itemHandler.getStackInSlot(0).getItem() == Items.WHEAT);
+        return (itemHandler.getStackInSlot(0).getItem() == Items.WHEAT && oil > 0);
     }
 
     private void resetProgress() {

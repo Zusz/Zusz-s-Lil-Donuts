@@ -11,34 +11,32 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.zusz.zdonutmod.ZDonutMod;
 import net.zusz.zdonutmod.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 
-public class MiniDonutRecipeCategory implements IRecipeCategory<MiniDonutMachineRecipe> {
-    public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(ZDonutMod.MOD_ID, "mini_donut_machine_recipe");
+public class MiniDonutRecipeWithOilCategory implements IRecipeCategory<MiniDonutMachineRecipe> {public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(ZDonutMod.MOD_ID, "mini_donut_machine_recipe_with_oil");
 
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(ZDonutMod.MOD_ID,
-            "textures/gui/mini_donut_machine/mini_donut_machine_gui_without_inventory.png");
+            "textures/gui/mini_donut_machine/mini_donut_machine_gui_without_inventory_with_oil.png");
 
-    public static final RecipeType<MiniDonutMachineRecipe> MINI_DONUT_MACHINE_RECIPE_RECIPE_TYPE =
+    public static final RecipeType<MiniDonutMachineRecipe> MINI_DONUT_MACHINE_RECIPE_WITH_OIL_RECIPE_TYPE =
             new RecipeType<>(UID, MiniDonutMachineRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
-    public MiniDonutRecipeCategory(IGuiHelper helper) {
+    public MiniDonutRecipeWithOilCategory(IGuiHelper helper) {
         this.background = helper.createDrawable(TEXTURE, 0, 0, 176, 85);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModItems.MINI_DONUT.asItem()));
     }
 
     @Override
-    public RecipeType<MiniDonutMachineRecipe> getRecipeType(){return MINI_DONUT_MACHINE_RECIPE_RECIPE_TYPE;}
+    public RecipeType<MiniDonutMachineRecipe> getRecipeType(){return MINI_DONUT_MACHINE_RECIPE_WITH_OIL_RECIPE_TYPE;}
 
     @Override
     public Component getTitle() {
-        return Component.translatable("jei.zdonutmod.mini_donut_machine_recipes");
+        return Component.translatable("jei.zdonutmod.mini_donut_machine_recipes_with_oil");
     }
 
     @Nullable
@@ -74,5 +72,4 @@ public class MiniDonutRecipeCategory implements IRecipeCategory<MiniDonutMachine
     @SuppressWarnings({"removal"})
     public IDrawable getBackground() {
         return background;
-    }
-}
+    } }

@@ -15,6 +15,7 @@ import net.zusz.zdonutmod.screen.custom.MiniDonutMachineScreen;
 import java.util.List;
 
 import static net.zusz.zdonutmod.compat.jei.MiniDonutRecipeCategory.MINI_DONUT_MACHINE_RECIPE_RECIPE_TYPE;
+import static net.zusz.zdonutmod.compat.jei.MiniDonutRecipeWithOilCategory.MINI_DONUT_MACHINE_RECIPE_WITH_OIL_RECIPE_TYPE;
 
 @JeiPlugin
 public class JEIZDonutModPlugin implements IModPlugin {
@@ -29,22 +30,30 @@ public class JEIZDonutModPlugin implements IModPlugin {
         registration.addRecipeCategories(new MiniDonutRecipeCategory(
                 registration.getJeiHelpers().getGuiHelper()
         ));
+        registration.addRecipeCategories(new MiniDonutRecipeWithOilCategory(
+                registration.getJeiHelpers().getGuiHelper()
+        ));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        List<MiniDonutMachineRecipe> miniDonutMachineRecipes = MiniDonutMachineRecipeManager.getAllRecipes();
+        List<MiniDonutMachineRecipe> miniDonutMachineOilRecipes = MiniDonutMachineRecipeManager.getOilRecipes();
+        registration.addRecipes(MINI_DONUT_MACHINE_RECIPE_WITH_OIL_RECIPE_TYPE, miniDonutMachineOilRecipes);
+        List<MiniDonutMachineRecipe> miniDonutMachineRecipes = MiniDonutMachineRecipeManager.getNonOilRecipes();
         registration.addRecipes(MINI_DONUT_MACHINE_RECIPE_RECIPE_TYPE, miniDonutMachineRecipes);
     }
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        registration.addRecipeClickArea(MiniDonutMachineScreen.class, 49, 35, 22, 20, MINI_DONUT_MACHINE_RECIPE_RECIPE_TYPE);
+        registration.addRecipeClickArea(MiniDonutMachineScreen.class, 49, 35, 22, 20, MINI_DONUT_MACHINE_RECIPE_WITH_OIL_RECIPE_TYPE, MINI_DONUT_MACHINE_RECIPE_RECIPE_TYPE);
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.MINI_DONUT_MACHINE.asItem()),
                 MINI_DONUT_MACHINE_RECIPE_RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.MINI_DONUT_MACHINE.asItem()),
+                MINI_DONUT_MACHINE_RECIPE_WITH_OIL_RECIPE_TYPE);
     }
+
 }
